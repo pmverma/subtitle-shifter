@@ -2,7 +2,6 @@ package changesrt;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalTime;
@@ -48,7 +47,7 @@ public class MainWindow extends javax.swing.JFrame {
         radioIncrease = new javax.swing.JRadioButton();
         spinnerSeconds = new javax.swing.JSpinner();
         btnDoIt = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        lblSeconds = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Shift subtitle time");
@@ -82,16 +81,19 @@ public class MainWindow extends javax.swing.JFrame {
         radioIncrease.setSelected(true);
         radioIncrease.setText("Increase");
 
+        spinnerSeconds.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         spinnerSeconds.setName(""); // NOI18N
 
         btnDoIt.setText("Do it!");
+        btnDoIt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnDoIt.setEnabled(false);
         btnDoIt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDoItActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("seconds");
+        lblSeconds.setText("seconds");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,6 +102,9 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(260, 260, 260)
+                        .addComponent(btnDoIt, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblOutput)
@@ -107,25 +112,21 @@ public class MainWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(radioIncrease)
+                                .addGap(37, 37, 37)
+                                .addComponent(radioDecrease)
+                                .addGap(57, 57, 57)
+                                .addComponent(spinnerSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtInput, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addComponent(radioIncrease)
-                        .addGap(37, 37, 37)
-                        .addComponent(radioDecrease)
-                        .addGap(18, 18, 18)
-                        .addComponent(spinnerSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(260, 260, 260)
-                        .addComponent(btnDoIt, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,15 +142,17 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(lblOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(radioDecrease)
-                        .addComponent(radioIncrease))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(spinnerSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(lblSeconds))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(radioDecrease)
+                            .addComponent(radioIncrease)
+                            .addComponent(spinnerSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(btnDoIt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -164,8 +167,12 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
         txtInput.setText(fileChooser.getSelectedFile().getAbsolutePath());
-        txtOutput.setText(fileChooser.getSelectedFile().getAbsolutePath() + "_new");
-
+        String file = fileChooser.getSelectedFile().getAbsolutePath();
+        String extension = file.substring(file.lastIndexOf("."));
+        String fileNameWithoutExtension = file.substring(0,file.lastIndexOf("."));
+        String outputFilePath = fileNameWithoutExtension + "_new" + extension;
+        txtOutput.setText(outputFilePath);
+        btnDoIt.setEnabled(true);
     }//GEN-LAST:event_btnInputActionPerformed
 
     private void btnOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOutputActionPerformed
@@ -179,38 +186,43 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOutputActionPerformed
 
     private void btnDoItActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoItActionPerformed
-
+        
+        int lineCounter = 1;
+        boolean changeNextLine = false;
         int amount = Integer.valueOf(spinnerSeconds.getValue().toString());
-
         if (radioDecrease.isSelected()) {
             decrease = true;
         }
-
         if (radioIncrease.isSelected()) {
             increase = true;
         }
 
         try {
-            Scanner scanner;
+            Scanner scanner = null;
             File output = new File(txtOutput.getText());
             output.createNewFile();
-
             PrintWriter printWriter = new PrintWriter(output);
+            
             try {
                 scanner = new Scanner(new File(txtInput.getText()));
                 while (scanner.hasNext()) {
                     String nextLine = scanner.nextLine();
                     String newLine = nextLine;
-                    if (nextLine.startsWith("00")) {
+                    if(nextLine.trim().equalsIgnoreCase(String.valueOf(lineCounter))) {
+                        changeNextLine = true;
+                        lineCounter+=1;
+                        printWriter.write(newLine + "\n");
+                        continue;
+                    }
+                    if (changeNextLine) {
                         String[] str = nextLine.split("-->");
-                        String start = str[0].split(",")[0];
-                        String end = str[1].split(",")[0].trim();
+                        String startStr = str[0].split(",")[0].trim();
+                        String endStr = str[1].split(",")[0].trim();
+                        String startMili = str[0].split(",")[1].trim();
+                        String endMili = str[1].split(",")[1].trim();
 
-                        String startMili = str[0].split(",")[1];
-                        String endMili = str[1].split(",")[1];
-
-                        LocalTime startTime = LocalTime.of(Integer.valueOf(start.split(":")[0]), Integer.valueOf(start.split(":")[1]), Integer.valueOf(start.split(":")[2]));
-                        LocalTime endTime = LocalTime.of(Integer.valueOf(end.split(":")[0]), Integer.valueOf(end.split(":")[1]), Integer.valueOf(end.split(":")[2]));
+                        LocalTime startTime = LocalTime.of(Integer.valueOf(startStr.split(":")[0]), Integer.valueOf(startStr.split(":")[1]), Integer.valueOf(startStr.split(":")[2]));
+                        LocalTime endTime = LocalTime.of(Integer.valueOf(endStr.split(":")[0]), Integer.valueOf(endStr.split(":")[1]), Integer.valueOf(endStr.split(":")[2]));
                         LocalTime newStartTime = null;
                         LocalTime newEndTime = null;
                         if (decrease) {
@@ -220,20 +232,26 @@ public class MainWindow extends javax.swing.JFrame {
                             newStartTime = startTime.plusSeconds(amount);
                             newEndTime = endTime.plusSeconds(amount);
                         }
-                        newLine = "00:" + newStartTime.getMinute() + ":" + newStartTime.getSecond() + "," + startMili + " -->  00:" + newEndTime.getMinute() + ":" + newEndTime.getSecond() + ", " + endMili;
-                        System.out.println(newLine);
+                        newLine = "00:" + newStartTime.getMinute() + ":" + newStartTime.getSecond() + "," + startMili + " -->  00:" + newEndTime.getMinute() + ":" + newEndTime.getSecond() + "," + endMili;
                     }
-
+                    changeNextLine = false;
                     printWriter.write(newLine + "\n");
                 }
             } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "File not found!", "Error", JOptionPane.ERROR);
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if(scanner != null) {
+                    scanner.close();
+                }
+                printWriter.close();
             }
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "I/O Error!", "Error", JOptionPane.ERROR);
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        JOptionPane.showInternalMessageDialog(null, "Finish!");
+        JOptionPane.showMessageDialog(this, "Finish, Enjoy it!");
     }//GEN-LAST:event_btnDoItActionPerformed
 
     /**
@@ -276,9 +294,9 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnInput;
     private javax.swing.JButton btnOutput;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblInput;
     private javax.swing.JLabel lblOutput;
+    private javax.swing.JLabel lblSeconds;
     private javax.swing.JRadioButton radioDecrease;
     private javax.swing.JRadioButton radioIncrease;
     private javax.swing.JSpinner spinnerSeconds;
